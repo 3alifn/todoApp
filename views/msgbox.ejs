@@ -1,0 +1,51 @@
+<msgbox>
+  
+  <style>
+    ._msg {
+      height: max-content;
+      width: 300px;
+      text-align: center;
+      /* background-color:white; */
+      /* padding: 5px; */
+      position: fixed;
+      bottom: 10px;
+      left: 50%;
+      transform: translate(-50%);
+      border-radius: 5px;
+      z-index: 999999;
+      transition: all 500ms;
+
+    }
+  </style>
+
+  <div class="_msg shadowx p-1" style="display: none;">
+     <span onclick="_msg_pop()"
+      class=" btn-close _msg-pop float-end"></span>
+    <p class="fw-semibold p-0 _msg-line"></p>
+  </div>
+
+
+<script>
+  function _msg_pull(color, msg, auto) {
+      $('._msg').fadeIn();
+      $('._msg').addClass('alert ' + color);
+      $('._msg-line').text(msg);
+
+      if (auto == false) {
+         null
+      } else {
+        setTimeout(() => {
+          $('._msg').fadeOut()
+
+        }, 3000);
+      }
+
+    }
+    function _msg_pop(time) {
+      if (time) var timeout = time; else var timeout = 'slow'
+      $('._msg').fadeOut(timeout)
+    }
+
+</script>
+  
+</msgbox>

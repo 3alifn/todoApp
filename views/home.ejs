@@ -1,0 +1,91 @@
+<main id="main-content" class="p-2 main-content mt-1">
+
+    <content>
+      <div class="row m-2 mt-1 shadow-sm text-center">
+        <div class="col-11 m-auto">
+  
+          <p class="p-2 text-muted fw-semibold fs-5">Our Users</p>
+  
+        </div>
+      </div>
+  
+  
+      <div id="tabledata" class="row shadow-sm p-2 mt-3">
+
+        <div class="col-auto ms-auto me-2">
+            <a href="/au/reg/" class="btn p-0 px-3 link-primary shadowx btn-go fw-500">Registration</a>
+            <a href="/au/login/" class="btn p-0 px-3 link-primary shadowx btn-go fw-500">Login</a>
+          </div>
+        <p></p>
+        <div class="col-md-11 col-12 m-auto">
+  
+          <div class="d-flex justify-content-between">
+            <select disabled style="width: 100px; outline: none;" class="form-dev shadowx p-0" name="" id="">
+              <option   value="15">15</option>
+              <option value="50">50</option>
+              <option value="100">100</option>
+              <option selected value="All">All</option>
+            </select>
+  
+            <input id="search" style="width: 200px; outline: none;" class="ps-2 form-dev p-0 shadowx" type="search"
+              placeholder="search">
+  
+          </div>
+  
+          <form class="w-100 overflow-auto" id="formcheckout" action="#" method="get" onsubmit="return false">
+          <table  class="table text-nowrap mt-1 mbx shadowx table-borderless">
+            <thead>
+              <tr>
+                <th class="p-3"> <input class="shadowx check-mark form-check-input" type="checkbox" name="checkout" id=""></th>
+                <th class="fw-semibold text-muted">Name</th>
+                <th class="fw-semibold text-muted">Email</th>
+              </tr>
+            </thead>
+            <tbody id="tbodydata" class="check-mark-area">
+  
+             <tr>
+              <td colspan="3" ><span class="text-center shadowx alert-info">Loading...</span></td>
+             </tr>
+
+              
+  
+          <tfoot>
+               
+  
+  
+          </tfoot>
+  
+            </tbody>
+          </table>
+        </form>
+        </div>
+      </div>
+  
+
+    </content>
+
+
+</main>
+
+
+
+<script>
+
+  function getUserData(){
+    $.ajax({
+      method: "GET",
+      url: "/getUserData/",
+      data: {},
+      dataType: "JSON",
+      success: function (res) {
+        
+        $('#tabledata tbody').html(res.data)
+      }
+    });
+  }
+  
+
+getUserData()  
+
+  
+</script>

@@ -1,0 +1,231 @@
+<main id="main-content" class="p-2 main-content mt-1">
+
+    <content>
+      <div class="row m-2 mt-1 shadow-sm text-center">
+        <div class="col-11 m-auto">
+  
+          <p class="p-2 text-muted fw-semibold fs-5">Our Customers</p>
+  
+        </div>
+      </div>
+  
+  
+      <div id="tabledata" class="row shadow-sm p-2 mt-1">
+        
+        <div class="col-auto me-auto me-2">
+          
+          <a href="/au/logout/" class="btn link-dark shadowx btn-go fw-bolder">Logout</a> 
+
+        </div>  
+        
+        <div class="col-auto ms-auto me-2">
+          
+            <button type="button" data-bs-toggle="modal" data-bs-target="#openform" id="openformbtn"
+            class="btn link-primary shadowx btn-go fw-bold">Create a new customer</button>
+        </div>
+
+        <p></p>
+        <div class="col-md-11 col-12 m-auto">
+  
+          <div class="d-flex justify-content-between">
+            <select disabled style="width: 100px; outline: none;" class="form-dev shadowx p-0" name="" id="">
+              <option   value="15">15</option>
+              <option value="50">50</option>
+              <option value="100">100</option>
+              <option selected value="All">All</option>
+            </select>
+  
+            <input id="search" style="width: 200px; outline: none;" class="ps-2 form-dev p-0 shadowx" type="search"
+              placeholder="search">
+  
+          </div>
+  
+          <form class="w-100 overflow-auto" id="formcheckout" action="#" method="get" onsubmit="return false">
+          <table  class="table text-nowrap mt-1 mbx shadowx table-borderless">
+            <thead>
+              <tr>
+                <th class="p-3"> <input class="shadowx check-mark form-check-input" type="checkbox" name="checkout" id=""></th>
+                <th class="fw-semibold text-muted">Delete</th>
+                <th class="fw-semibold text-muted">First Name</th>
+                <th class="fw-semibold text-muted">Last Name</th>
+                <th class="fw-semibold text-muted">Gender</th>
+                <th class="fw-semibold text-muted">Age</th>
+                <th class="fw-semibold text-muted">Email</th>
+                <th class="fw-semibold text-muted">Phone</th>
+              </tr>
+            </thead>
+            <tbody id="tbodydata" class="check-mark-area">
+  
+             <tr>
+              <td colspan="3" ><span class="text-center shadowx alert-info">Loading...</span></td>
+             </tr>
+
+        
+  
+          <tfoot>
+               
+            <!-- <tr>
+              <td class="shadowx"> <button type="submit" class="bi shadowx p-0 px-3 btnpop btn btn-danger">Delete</button></td>
+            </tr> -->
+  
+          </tfoot>
+  
+            </tbody>
+          </table>
+        </form>
+        </div>
+      </div>
+  
+  
+  
+      <div id="openform" data-bs-backdrop="static" class="row modal p-2 mt-5">
+  
+      <div class="col-md-10 modal-dialog modal-content shadowx  mt-3 bg-gradient- bg-light text- mb-5 col-12 m-auto">
+  
+        <form  id="formdata" action="#" method="post">
+              <div class="col-11 pt-2">
+                <p class="p-2 text-muted text-center fw-semibold fs-5">My create form</p>
+              </div>
+
+  
+              
+              <div class="d-flex  p-2 justify-content-between align-items-center">
+                <p class="w-25 fw-semibold m-auto">First Name</p>
+                <code class="pe-1">*</code> 
+                
+                <input required name="fname" class="w-75 shadowx form-dev form-control-sm" placeholder="enter first name" type="text">
+              </div>
+              
+              
+              <div class="d-flex  p-2 justify-content-between align-items-center">
+                <p class="w-25 fw-semibold m-auto">Last Name</p>
+                <code class="pe-1">*</code> 
+                
+                <input required name="lname" class="w-75 shadowx form-dev form-control-sm" placeholder="enter last name" type="text">
+              </div>
+
+  
+              <div class="d-flex p-2 justify-content-between align-items-center">
+                <p class="w-25 fw-semibold m-auto">Gender</p>
+                <code class="pe-1">*</code>  
+                  <span class="w-75">
+                  Male <input value="Male" class="form-check-input shadowx ms-2 me-2" checked type="radio" name="gender" id="">
+                  Female <input value="Female" class="form-check-input shadowx ms-2" type="radio" name="gender" id="">
+              
+                </span>
+              
+              </div>
+
+
+              
+  
+              <div class="d-flex  p-2 justify-content-between align-items-center">
+                <p class="w-25 fw-semibold m-auto">Age</p>
+                <code class="pe-1">*</code>  
+                 <input required name="age" min="18" max="110" class="w-75 shadowx form-dev form-control-sm" placeholder="enter age" type="number">
+              </div>
+
+  
+  
+              <div class="d-flex  p-2 justify-content-between align-items-center">
+                <p class="w-25 fw-semibold m-auto">Email</p>
+                <code class="pe-1">-</code>  
+                <input name="email" class="w-75 shadowx form-dev form-control-sm" placeholder="example@gmai.com" type="email">
+              </div>
+
+              
+              <div class="d-flex  p-2 justify-content-between align-items-center">
+                <p class="w-25 fw-semibold m-auto">Phone </p>
+                <code class="pe-1">*</code>  
+                <input required maxlength="11" name="phone" class="w-75 shadowx form-dev form-control-sm" placeholder="01XXXXXXXX" type="number">
+              </div>
+              
+  
+  
+              <!-- <div class="d-flex  p-2 justify-content-between align-items-center">
+                <code class="w-25 fw-semibold">Choose png or jpeg </code>
+                <code class="pe-1">-</code>  
+                  <input accept="image/png, image/jpeg"  name="avatar" class="w-75 shadowx images form-dev form-control-sm" type="file"
+                  id="">
+              </div> -->
+        
+  
+              <div class="d-flex justify-content-between p-2 mb-2">
+                <button type="button" data-bs-dismiss="modal" class="btn btn-link">Close</button>
+                <input style="display: none;" type="reset" value="Reset" class="formreset btn btn-link">
+                <button class="btn  text-primary submitbtn nav-fill btn-hover shadowx">Create and save</button>
+              </div>
+  
+        </form>
+  
+      </div>
+  
+    
+      </div>
+  
+    </content>
+
+
+</main>
+
+
+<script>
+
+   $('#formdata').on('submit', (event) => {
+    event.preventDefault()
+
+    $.ajax({
+        method: "POST",
+        url: "/user/postCustomerData/",
+        data: $('#formdata').serialize(), 
+        dataType: "JSON",
+
+        beforeSend: function () {
+            $('.submitbtn').addClass('disabled');
+        },
+        success: function (res) {
+            _msg_pull('alert-info', res.msg);
+            $('.submitbtn').removeClass('disabled');
+            getCustomerData();
+        },
+        error: function (xhr, status, error) {
+            console.error( error);
+          
+        }
+    });
+});
+
+  
+  function getCustomerData(){
+    $.ajax({
+      method: "GET",
+      url: "/user/getCustomerData/",
+      data: {},
+      dataType: "JSON",
+      success: function (res) {
+        
+        $('#tabledata tbody').html(res.data)
+      }
+    });
+  }
+  
+
+  getCustomerData()  
+  
+  
+  function deleteCustomerData(id){
+    $.ajax({
+      method: "DELETE",
+      url: "/user/deleteCustomerData/",
+      data: {id},
+      dataType: "JSON",
+      success: function (res) {
+        _msg_pull('alert-info', res.msg);
+        getCustomerData()  
+        
+      }
+    });
+  }
+  
+
+</script>
