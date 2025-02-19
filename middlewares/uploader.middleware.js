@@ -4,7 +4,7 @@ import fs from "fs";
 
 const globalMulterUploader = ({ name, path, size, filter }) => {
   return (req, res, next) => {
-    const fpath= pathNode.join(__dirname, '../assets', res.locals.hostname, path)
+    const fpath= pathNode.join(__dirname, '../public', path)
     const upload = multer({
       storage: multer.diskStorage({
         destination: (req, file, cb) => cb(null, fpath),

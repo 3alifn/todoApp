@@ -1,3 +1,5 @@
+import fs from "fs";
+import path from "path";
 import express from "express";
 import ejs from "ejs";
 import cors from "cors";
@@ -10,6 +12,9 @@ import cookieParser from "cookie-parser";
 import multer from "multer";
 import nodeMailer from "nodemailer";
 const app= express();
+import { fileURLToPath } from "url";
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // cross origin resource share config...
 app.use(cors({
@@ -33,7 +38,6 @@ app.set("views", path.join(__dirname, "./views"));
 app.use(express.static(path.join(__dirname, './public')));
 // browser cookies use app...
 app.use(cookieParser('pipilikiapipra'));
-
 
 // mysql database config...
 const sqlmap= mysql.createPool({
@@ -65,3 +69,8 @@ const PORT= process.env.listen_port || 3000;
 app.listen(PORT, ()=>{
   console.log(`Todo App Started... _> code by alifn => server is runnig on port ${PORT}`);
 })
+
+
+export {
+  sqlmap, express, app, mysql, multer, nodeMailer, __filename, __dirname
+}

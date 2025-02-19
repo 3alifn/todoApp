@@ -1,4 +1,4 @@
-{
+{ "type": "module",
   "name": "todoapp",
   "version": "1.0.0",
   "description": "A todoApp use for crud operation",
