@@ -1,11 +1,12 @@
 
-<div id="FormApp" class="container mt-5 mb-5">
+<div id="FormApp" class="container mt-3 mb-3">
     <div class="row p-2">
       <div class="col-12 col-md-8 col-lg-6 shadowx m-auto p-3 pb-5">
 
 <form  id="formdata" action="#" method="post" >
     <div class="col-11 pt-2">
       <p class="p-2 text-muted text-center fw-semibold fs-5">Registration form</p>
+      <a href="/au/login/" class="pb-3 mt-3 d-block">Return Login</a>
     </div>
 
 
@@ -56,7 +57,7 @@
       -->
 
     <div class="d-flex justify-content-between p-2 mb-2">
-      <button type="submit" class="btn  text-primary submitbtn nav-fill btn-hover shadowx">Submit</button>
+      <button type="submit" class="btn text-primary submitbtn nav-fill btn-hover shadowx fw-bolder">Submit</button>
     </div>
 
 </form>
@@ -72,7 +73,7 @@ $('#formdata').on('submit', (event) => {
 
     $.ajax({
         method: "POST",
-        url: "/au/addUserDataPost",
+        url: "/au/regUserData",
         data: $('#formdata').serialize(), 
         dataType: "JSON",
 
@@ -83,7 +84,9 @@ $('#formdata').on('submit', (event) => {
             _msg_pull('alert-info', res.msg);
             $('.submitbtn').removeClass('disabled');
            if(res.status==200){
-           return window.location.replace('/user/dashboad/')
+           setTimeout(() => {
+             window.location.replace('/user/dashboard/')
+           }, 1000);
            }
 
         },

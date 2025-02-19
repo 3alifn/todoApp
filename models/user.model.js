@@ -12,7 +12,7 @@ export const getUserDataModel = async (query, param) => {
 };
 
 
-export const addUserDataModel = async (query, param) => {
+export const regUserDataModel = async (query, param) => {
 
     return new Promise((resolve, reject) => {
         sqlmap.query(query, param, (err, insert) => {

@@ -1,13 +1,13 @@
 import { Router } from "express";
 const auth= Router();
-import { AddUserData, loginCheckoutUserData } from "../controllers/user.controller.js";
+import { regUserData, loginCheckoutUserData } from "../controllers/user.controller.js";
 
 auth.get('/reg/', (req, res)=>{
     res.render('layout', {view_content: "regForm"});
 })
 
 
-auth.post('/addUserDataPost', AddUserData)
+auth.post('/regUserData', regUserData)
 
 auth.get('/login/', (req, res)=>{
     res.render('layout', {view_content: "loginForm"});

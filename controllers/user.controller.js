@@ -1,5 +1,5 @@
 import { sqlmap } from "../server.js"; // mysql connector...
-import { getUserDataModel, addUserDataModel, loginCheckoutUserDataModel} from "../models/user.model.js";
+import { getUserDataModel, regUserDataModel, loginCheckoutUserDataModel} from "../models/user.model.js";
 import {createHmac} from "crypto";
 import { resolve } from "path";
 import { rejects } from "assert";
@@ -37,7 +37,7 @@ try {
 }
 
 
-export const AddUserData= async (req, res, next)=>{
+export const regUserData= async (req, res, next)=>{
 
         const { name, gender, email, password } = req.body;
         
@@ -59,7 +59,7 @@ export const AddUserData= async (req, res, next)=>{
 
         try {
             const insert= await regCheckUserDataModel(email)
-                const result= await addUserDataModel(query, param)
+                const result= await regUserDataModel(query, param)
                 req.session.auth={user: true, email: email, name: name}
                 return res.send({ status: 200,  msg: "User Registration Successfully!..." });
              

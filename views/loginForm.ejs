@@ -1,9 +1,9 @@
-<div id="FormApp" class="container mt-5 mb-5">
+<div id="FormApp" class="container mt-3 mb-3">
     <div class="row p-2">
       <div class="col-12 col-md-8 col-lg-6 shadowx m-auto p-3 pb-5">
         <form id="formdata" action="#" method="post" class="text-center">
           <code class="pb-3 fw-semibold fs-5">User Login</code>
-          <a href="/au/reg/" class="pb-3 mt-3 d-block">Return Regform</a>
+          <a href="/au/reg/" class="pb-3 me-auto mt-3 d-block">Return Registration form</a>
 
 
           <div class="input-group mt-2">
@@ -43,7 +43,7 @@
 
           if(res.status==200){
             
-           return window.location.replace('/user/dashboad/')
+           return window.location.replace('/user/dashboard/')
            }
         },
         error: function (xhr, status, error) {

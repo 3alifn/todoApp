@@ -10,12 +10,20 @@
       </div>
   
   
-      <div id="tabledata" class="row shadow-sm p-2 mt-3">
+      <div id="tabledata" class="row shadow-sm p-2 mt-1">
+        
+        <div class="col-auto me-auto me-2">
+          
+          <a href="/au/logout/" class="btn link-dark shadowx btn-go fw-bolder">Logout</a> 
+
+        </div>  
         
         <div class="col-auto ms-auto me-2">
-          <button type="button" data-bs-toggle="modal" data-bs-target="#openform" id="openformbtn"
-            class="btn link-success shadowx btn-go fw-500">Create a new customer</button>
+          
+            <button type="button" data-bs-toggle="modal" data-bs-target="#openform" id="openformbtn"
+            class="btn link-primary shadowx btn-go fw-bold">Create a new customer</button>
         </div>
+
         <p></p>
         <div class="col-md-11 col-12 m-auto">
   
@@ -37,6 +45,7 @@
             <thead>
               <tr>
                 <th class="p-3"> <input class="shadowx check-mark form-check-input" type="checkbox" name="checkout" id=""></th>
+                <th class="fw-semibold text-muted">Delete</th>
                 <th class="fw-semibold text-muted">First Name</th>
                 <th class="fw-semibold text-muted">Last Name</th>
                 <th class="fw-semibold text-muted">Gender</th>
@@ -113,7 +122,7 @@
               <div class="d-flex  p-2 justify-content-between align-items-center">
                 <p class="w-25 fw-semibold m-auto">Age</p>
                 <code class="pe-1">*</code>  
-                 <input required name="age" min="18" max="110" class="w-75 shadowx form-dev form-control-sm" placeholder="enter address" type="number">
+                 <input required name="age" min="18" max="110" class="w-75 shadowx form-dev form-control-sm" placeholder="enter age" type="number">
               </div>
 
   
@@ -167,7 +176,7 @@
 
     $.ajax({
         method: "POST",
-        url: "/user/addCustomerData/",
+        url: "/user/postCustomerData/",
         data: $('#formdata').serialize(), 
         dataType: "JSON",
 
@@ -202,4 +211,21 @@
   
 
   getCustomerData()  
+  
+  
+  function deleteCustomerData(id){
+    $.ajax({
+      method: "DELETE",
+      url: "/user/deleteCustomerData/",
+      data: {id},
+      dataType: "JSON",
+      success: function (res) {
+        _msg_pull('alert-info', res.msg);
+        getCustomerData()  
+        
+      }
+    });
+  }
+  
+
 </script>
