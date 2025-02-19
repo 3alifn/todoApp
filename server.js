@@ -54,18 +54,18 @@ const sqlmap= mysql.createPool({
 const mysqlStore= MySQLStore(expressSession)
 // session time one week...
 const sessionStore= new mysqlStore({expiration: 86400000*7}, sqlmap)
-const session= expressSession({
-    key: 'mysqlSession',
-    secret: 'pipra',
-    store: sessionStore,
-    resave: false,
-    saveUninitialized: false,
-    name: 'TodoApp',
-    cookie: {
-     path: '/', secure: false, httpOnly: true, maxAge:  86400000*7, 
-    }
+app.use(expressSession({
+  key: 'mysqlSession',
+  secret: 'pipra',
+  store: sessionStore,
+  resave: false,
+  saveUninitialized: false,
+  name: 'TodoApp',
+  cookie: {
+   path: '/', secure: false, httpOnly: true, maxAge:  86400000*7, 
+  }
 })
-
+)
 const PORT= process.env.listen_port || 3000;
 app.listen(PORT, ()=>{
   console.log(`Todo App Started... _> code by alifn => server is runnig on port ${PORT}`);

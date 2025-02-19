@@ -1,5 +1,5 @@
 import { sqlmap } from "../server.js"; // mysql connector...
-import { getUserDataModel, addUserDataModel} from "../models/user.model.js";
+import { getUserDataModel, addUserDataModel, loginCheckoutUserDataModel} from "../models/user.model.js";
 import {createHmac} from "crypto";
 import { resolve } from "path";
 import { rejects } from "assert";
@@ -16,16 +16,14 @@ try {
                           <input class="shadowx checkout form-check-input" type="checkbox" value="${user.id}" name="dataid[]" id="">
                       </td>
                       <td class="">
-                          <span class="badge text-dark bg-light">
-                              <img class="shadowx avatar-circle bg-card-color-light rounded-pill" style="width: 40px; height: 40px;" src="/images/${user.avatar}" alt="">
-                          </span>
+                       
                           <span class="badge text-dark bg-light">${user.name}</span>
                       </td>
                       <td class="">
                           <span class="badge text-dark bg-light">${user.email}</span>
-                      </td>
+                      </td> 
+      
                   
-                      </td>
     </tr>`
     
     }
@@ -35,9 +33,6 @@ try {
 } catch (err) {
     next(err) // throw globalError...
 }
-
-
-
 
 }
 
@@ -50,7 +45,7 @@ export const AddUserData= async (req, res, next)=>{
         const query= `INSERT INTO users (name, gender, email, password) VALUES (?, ?, ?, ?)`
         const param= [name, gender, email, hashPassword]
         
-        const checkUserData= (userEmail)=>{
+        const regCheckUserDataModel= (userEmail)=>{
           return new Promise((resolve, reject)=>{
                 sqlmap.query(`select id from users where email=?`, [userEmail], (err, data)=>{
                     if(err) return reject(err.sqlMessage)
@@ -63,12 +58,36 @@ export const AddUserData= async (req, res, next)=>{
         }         
 
         try {
-            const insert= await checkUserData(email)
+            const insert= await regCheckUserDataModel(email)
                 const result= await addUserDataModel(query, param)
+                req.session.auth={user: true, email: email, name: name}
                 return res.send({ status: 200,  msg: "User Registration Successfully!..." });
              
         } catch (err) {
             return next(err);
         }
 }
+
+
+
+export const loginCheckoutUserData= async (req, res, next)=>{
+
+        const { email, password } = req.body;
+        
+        const hashPassword= createHmac('md5', process.env.secret_key).update(password).digest('hex');
+        const param= [email, hashPassword]
+        
+
+        try {
+            const data= await loginCheckoutUserDataModel(email, hashPassword)
+            
+                req.session.auth= { user: true, email: data[0].email, name: data[0].name};
+   
+                return res.send({status: 200,  msg: "Login Successfully!" });
+             
+        } catch (err) {
+            return next(err);
+        }
+}
+
 

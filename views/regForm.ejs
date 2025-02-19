@@ -79,11 +79,13 @@ $('#formdata').on('submit', (event) => {
         beforeSend: function () {
             $('.submitbtn').addClass('disabled');
         },
-        success: function (res) {
-          console.log(res.msg);
-          
+        success: function (res) {          
             _msg_pull('alert-info', res.msg);
             $('.submitbtn').removeClass('disabled');
+           if(res.status==200){
+           return window.location.replace('/user/dashboad/')
+           }
+
         },
         error: function (xhr, status, error) {
             console.error( error);

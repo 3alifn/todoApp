@@ -38,8 +38,7 @@
               <tr>
                 <th class="p-3"> <input class="shadowx check-mark form-check-input" type="checkbox" name="checkout" id=""></th>
                 <th class="fw-semibold text-muted">Name</th>
-                <th class="fw-semibold text-muted">Position</th>
-                <th class="fw-semibold text-muted">Action</th>
+                <th class="fw-semibold text-muted">Email</th>
               </tr>
             </thead>
             <tbody id="tbodydata" class="check-mark-area">
@@ -72,7 +71,7 @@
 
 <script>
 
-  function FetchData(){
+  function getUserData(){
     $.ajax({
       method: "GET",
       url: "/getUserData/",
@@ -85,6 +84,8 @@
     });
   }
   
-  FetchData()
+
+getUserData()  
+
   
 </script>

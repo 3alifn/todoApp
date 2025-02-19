@@ -4,7 +4,10 @@ import auth from './routes/auth.router.js';
 import user from './routes/user.router.js';
 import { getUserData } from "./controllers/user.controller.js";
 app.all('/', (req, res)=>{
-    res.render('layout', {view_content: 'home'})
+    if(req.session.auth){
+       res.redirect('/user/dashboard/')
+    } 
+    return res.render('layout', {view_content: 'home'})
 })
 app.use('/au/', auth);
 app.use('/user/', user);

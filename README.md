@@ -1,2 +1,2 @@
 # todoApp
-A todo app use for crud operation!
+Create a todo app for my code review!

@@ -26,3 +26,16 @@ export const addUserDataModel = async (query, param) => {
 
 };
 
+
+export const loginCheckoutUserDataModel= (userEmail, userPassword)=>{
+    return new Promise((resolve, reject)=>{
+          sqlmap.query(`select * from users where email=? AND password=?`, [userEmail, userPassword], (err, data)=>{
+              if(err) return reject(err.sqlMessage)
+                  if(data?.length>0){
+                      
+                      return resolve(data)
+                  } 
+                  return reject("Authentication Failed!")
+          })
+     })
+  }         
