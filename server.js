@@ -27,6 +27,7 @@ app.use(cors({
 // request data or from fata parse...
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
+
 // express app config...
 app.set('trust proxy', 1);
 app.enable("trust proxy", true);

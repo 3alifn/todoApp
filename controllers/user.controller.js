@@ -1,6 +1,8 @@
 import { sqlmap } from "../server.js"; // mysql connector...
-import { getUserDataModel } from "../models/user.model.js";
-
+import { getUserDataModel, addUserDataModel} from "../models/user.model.js";
+import {createHmac} from "crypto";
+import { resolve } from "path";
+import { rejects } from "assert";
 export const getUserData= async (req, res, next)=> {
 
 try {
@@ -8,34 +10,21 @@ try {
     const elemData= await getUserDataModel(query, []);
 
     let element= "";
-    for (const index of elemData.msg) {
+    for (const user of elemData.msg) {
       element+= `  <tr>
                       <td class="p-3"> 
-                          <input class="shadowx checkout form-check-input" type="checkbox" value="${info[index].id}" name="dataid[]" id="">
+                          <input class="shadowx checkout form-check-input" type="checkbox" value="${user.id}" name="dataid[]" id="">
                       </td>
                       <td class="">
                           <span class="badge text-dark bg-light">
-                              <img class="shadowx avatar-circle bg-card-color-light rounded-pill" style="width: 40px; height: 40px;" src="/images/${info[index].avatar}" alt="">
+                              <img class="shadowx avatar-circle bg-card-color-light rounded-pill" style="width: 40px; height: 40px;" src="/images/${user.avatar}" alt="">
                           </span>
-                          <span class="badge text-dark bg-light">${info[index].name}</span>
+                          <span class="badge text-dark bg-light">${user.name}</span>
                       </td>
                       <td class="">
-                          <span class="badge text-dark bg-light">${info[index].email}</span>
+                          <span class="badge text-dark bg-light">${user.email}</span>
                       </td>
-                      <td class="fw-semibold text-muted">
-                          <div class="dropdown">
-                              <button data-bs-toggle="dropdown" class="btn btn-link dropdown-toggle shadowx"> 
-                                  <i class="bi bi-three-dots-vertical"></i>
-                              </button>
-                              <div class="dropdown-menu">
-                                  <button type='button' onclick='_penbox_pull(${info[index].id})' class="btn dropdown-item btn-link p-2">
-                                      <i class="bi bi-pen p-1"></i>view and edit
-                                  </button>
-                                  <button type='button' onclick='_delbox_push(${info[index].id})' class="btn dropdown-item btn-link p-2">
-                                      <i class="bi bi-trash p-1"></i>delete forever
-                                  </button>
-                              </div>
-                          </div>
+                  
                       </td>
     </tr>`
     
@@ -53,11 +42,33 @@ try {
 }
 
 
-const  AddUserData= async (req, res, next)=>{
+export const AddUserData= async (req, res, next)=>{
 
-        const { suuid, roll, name, avatar } = student;
-
+        const { name, gender, email, password } = req.body;
         
+        const hashPassword= createHmac('md5', process.env.secret_key).update(password).digest('hex');
+        const query= `INSERT INTO users (name, gender, email, password) VALUES (?, ?, ?, ?)`
+        const param= [name, gender, email, hashPassword]
+        
+        const checkUserData= (userEmail)=>{
+          return new Promise((resolve, reject)=>{
+                sqlmap.query(`select id from users where email=?`, [userEmail], (err, data)=>{
+                    if(err) return reject(err.sqlMessage)
+                        if(data?.length>0){
+                            return reject('User Email Already Exists...')
+                        } 
+                        return resolve(true)
+                })
+           })
+        }         
 
+        try {
+            const insert= await checkUserData(email)
+                const result= await addUserDataModel(query, param)
+                return res.send({ status: 200,  msg: "User Registration Successfully!..." });
+             
+        } catch (err) {
+            return next(err);
+        }
 }
 

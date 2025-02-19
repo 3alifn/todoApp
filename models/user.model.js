@@ -19,7 +19,8 @@ export const addUserDataModel = async (query, param) => {
                 if (err) {
                     return reject(err.sqlMessage);
                 }
-                resolve({ status: 200,  msg: "User Added..." });
+
+                return resolve({ status: 200,  msg: "User Added..." });
             });
     });
 
