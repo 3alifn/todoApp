@@ -6,7 +6,7 @@ import { rejects } from "assert";
 export const getUserData= async (req, res, next)=> {
 
 try {
-    const query= `select * from users limit 50`;
+    const query= `select * from users order by id desc limit 50 `;
     const elemData= await getUserDataModel(query, []);
 
     let element= "";
@@ -15,6 +15,16 @@ try {
                       <td class="p-3"> 
                           <input class="shadowx checkout form-check-input" type="checkbox" value="${user.id}" name="dataid[]" id="">
                       </td>
+
+                                    
+                      <td class="">
+
+                       <span class="badge text-dark bg-light">
+                          <img class="shadowx avatar-circle bg-card-color-light rounded-pill" style="width: 40px; height: 40px;" src="/images/${user.avatar}" alt="">
+                      </span>
+
+                      </td> 
+
                       <td class="">
                        
                           <span class="badge text-dark bg-light">${user.name}</span>
@@ -40,10 +50,11 @@ try {
 export const regUserData= async (req, res, next)=>{
 
         const { name, gender, email, password } = req.body;
-        
+        const defaultAvatat= gender=="male"?'male_avatar.png':'female_avatar.png';
+        const avatar= req.file?.filename==undefined? defaultAvatat: req.file?.filename;
         const hashPassword= createHmac('md5', process.env.secret_key).update(password).digest('hex');
-        const query= `INSERT INTO users (name, gender, email, password) VALUES (?, ?, ?, ?)`
-        const param= [name, gender, email, hashPassword]
+        const query= `INSERT INTO users (name, gender, email, password, avatar) VALUES (?, ?, ?, ?, ?)`
+        const param= [name, gender, email, hashPassword, avatar]
         
         const regCheckUserDataModel= (userEmail)=>{
           return new Promise((resolve, reject)=>{
@@ -60,7 +71,7 @@ export const regUserData= async (req, res, next)=>{
         try {
             const insert= await regCheckUserDataModel(email)
                 const result= await regUserDataModel(query, param)
-                req.session.auth={user: true, email: email, name: name}
+                req.session.auth={user: true, email: email, name: name, avatar: avatar}
                 return res.send({ status: 200,  msg: "User Registration Successfully!..." });
              
         } catch (err) {
@@ -81,7 +92,7 @@ export const loginCheckoutUserData= async (req, res, next)=>{
         try {
             const data= await loginCheckoutUserDataModel(email, hashPassword)
             
-                req.session.auth= { user: true, email: data[0].email, name: data[0].name};
+                req.session.auth= { user: true, email: data[0].email, name: data[0].name, avatar: data[0].avatar};
    
                 return res.send({status: 200,  msg: "Login Successfully!" });
              

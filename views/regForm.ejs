@@ -48,13 +48,13 @@
 
 
 
-    <!-- <div class="d-flex  p-2 justify-content-between align-items-center">
-      <code class="w-25 fw-semibold">Choose png or jpeg </code>
+    <div class="d-flex  p-2 justify-content-between align-items-center">
+      <code class="w-25 fw-semibold">Choose png or jpeg (upto 1mb)</code>
       <code class="pe-1">-</code>  
         <input accept="image/png, image/jpeg"  name="avatar" class="w-75 shadowx images form-dev form-control-sm" type="file"
         id="">
     </div>
-      -->
+     
 
     <div class="d-flex justify-content-between p-2 mb-2">
       <button type="submit" class="btn text-primary submitbtn nav-fill btn-hover shadowx fw-bolder">Submit</button>
@@ -70,13 +70,18 @@
 
 $('#formdata').on('submit', (event) => {
     event.preventDefault()
-
+    let formdata = new FormData($("#formdata")[0])
     $.ajax({
         method: "POST",
         url: "/au/regUserData",
-        data: $('#formdata').serialize(), 
+        // data: $('#formdata').serialize(), 
+        data: formdata, 
         dataType: "JSON",
-
+        mimeType: "maltipart-data",
+        cache: false,
+        processData: false,
+        contentType: false,
+        
         beforeSend: function () {
             $('.submitbtn').addClass('disabled');
         },

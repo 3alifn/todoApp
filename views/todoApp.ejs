@@ -9,6 +9,8 @@
         </div>
       </div>
   
+    
+       
   
       <div id="tabledata" class="row shadow-sm p-2 mt-1">
         
@@ -16,6 +18,11 @@
           
           <a href="/au/logout/" class="btn link-dark shadowx btn-go fw-bolder">Logout</a> 
 
+          <span class="badge text-dark bg-light">
+            <img class="shadowx avatar-circle userAvatar bg-card-color-light rounded-pill" style="width: 40px; height: 40px;" src="/images/user.png" alt="user">
+        </span>
+      
+            <span class="badge userName text-dark bg-light"></span>
         </div>  
         
         <div class="col-auto ms-auto me-2">
@@ -46,6 +53,7 @@
               <tr>
                 <th class="p-3"> <input class="shadowx check-mark form-check-input" type="checkbox" name="checkout" id=""></th>
                 <th class="fw-semibold text-muted">Delete</th>
+                <th class="fw-semibold text-muted">Avatar</th>
                 <th class="fw-semibold text-muted">First Name</th>
                 <th class="fw-semibold text-muted">Last Name</th>
                 <th class="fw-semibold text-muted">Gender</th>
@@ -142,12 +150,12 @@
               
   
   
-              <!-- <div class="d-flex  p-2 justify-content-between align-items-center">
-                <code class="w-25 fw-semibold">Choose png or jpeg </code>
+              <div class="d-flex  p-2 justify-content-between align-items-center">
+                <code class="w-25 fw-semibold">Choose png or jpeg (upto 1mb)</code>
                 <code class="pe-1">-</code>  
                   <input accept="image/png, image/jpeg"  name="avatar" class="w-75 shadowx images form-dev form-control-sm" type="file"
                   id="">
-              </div> -->
+              </div>
         
   
               <div class="d-flex justify-content-between p-2 mb-2">
@@ -173,12 +181,17 @@
 
    $('#formdata').on('submit', (event) => {
     event.preventDefault()
-
+    let formdata = new FormData($("#formdata")[0])
     $.ajax({
         method: "POST",
         url: "/user/postCustomerData/",
-        data: $('#formdata').serialize(), 
+        // data: $('#formdata').serialize(), 
+        data: formdata, 
         dataType: "JSON",
+        mimeType: "maltipart-data",
+        cache: false,
+        processData: false,
+        contentType: false,
 
         beforeSend: function () {
             $('.submitbtn').addClass('disabled');
@@ -203,7 +216,8 @@
       data: {},
       dataType: "JSON",
       success: function (res) {
-        
+        $('.userName').html(res.user.name)
+        $('.userAvatar').attr('src', "/images/"+res.user.avatar)
         $('#tabledata tbody').html(res.data)
       }
     });
