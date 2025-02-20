@@ -1,8 +1,12 @@
 import multer from "multer";
 import pathNode from "path";
 import fs from "fs";
+import { fileURLToPath } from "url";
+import path from "path";
+const __filename= fileURLToPath(import.meta.url);
+const __dirname= path.dirname(__filename);
 
-const globalMulterUploader = ({ name, path, size, filter }) => {
+export const globalMulterUploader = ({ name, path, size, filter }) => {
   return (req, res, next) => {
     const fpath= pathNode.join(__dirname, '../public', path)
     const upload = multer({

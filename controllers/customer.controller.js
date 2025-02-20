@@ -1,13 +1,14 @@
 import { getCustomerDataModel, postCustomerDataModel, deleteCustomerDataModel } from "../models/customer.model.js"
+import user from "../routes/user.router.js";
 import {sqlmap} from "../server.js"
 
 export const getCustomerData= async (req, res, next)=>{
 
 try {
-    const query= `select * from customers where userid=? limit 50`;
+    const query= `select * from customers where userid=? order by id desc limit 50 `;
     const userid= req.session.auth.email;
     const elemData= await getCustomerDataModel(query, [userid]);
-
+    const userData= req.session.auth;
     let element= "";
     for (const user of elemData.msg) {
       element+= `  <tr>
@@ -19,9 +20,18 @@ try {
              
                       
                       <td class="">
+
+                       <span class="badge text-dark bg-light">
+                          <img class="shadowx avatar-circle bg-card-color-light rounded-pill" style="width: 40px; height: 40px;" src="/images/${user.avatar}" alt="">
+                      </span>
+
+                      </td>    
+                      
+                      <td class="">
                        
                           <span class="badge text-dark bg-light">${user.first_name}</span>
                       </td>
+                      
                       <td class="">
                           <span class="badge text-dark bg-light">${user.last_name}</span>
                       </td> 
@@ -47,7 +57,7 @@ try {
     
     }
     
-   return res.send({status: 200, data: element})
+   return res.send({status: 200, data: element, user: userData})
     
 } catch (err) {
     return next(err) // throw globalError...
@@ -60,8 +70,12 @@ export const postCustomerData= async (req, res, next)=>{
     
     const { fname, lname, gender, age, email, phone } = req.body;
     const userid= req.session.auth.email;
-    const query= `INSERT INTO customers (userid, first_name, last_name, gender, age, email, phone) VALUES (?, ?, ?, ?, ?, ?, ?)`
-    const param= [userid, fname, lname, gender, age, email, phone]
+    const defaultAvatat= gender=="male"?'male_avatar.png':'female_avatar.png';
+    const avatar= req.file?.filename==undefined? defaultAvatat: req.file?.filename;
+    console.log(avatar);
+    
+   const query= `INSERT INTO customers (userid, first_name, last_name, gender, age, email, phone, avatar) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
+    const param= [userid, fname, lname, gender, age, email, phone, avatar]
     
     const customerCheckDataModel= (userEmail)=>{
       return new Promise((resolve, reject)=>{

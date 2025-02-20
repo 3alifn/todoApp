@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 19, 2025 at 09:59 PM
+-- Generation Time: Feb 20, 2025 at 08:01 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -45,8 +45,8 @@ CREATE TABLE `customers` (
 --
 
 INSERT INTO `customers` (`id`, `first_name`, `last_name`, `gender`, `age`, `email`, `phone`, `avatar`, `userid`, `created_at`) VALUES
-(5, 'Tanvir', 'Islam', 'Male', 25, 'tanvirnomail@abc.com', 1548468600, '', 'user@admin.com', '2025-02-20'),
-(6, 'Ratul', 'Mia', 'Male', 24, 'ratulnomail@abc.com', 1548468601, '', 'user@admin.com', '2025-02-20');
+(5, 'Tanvir', 'Islam', 'Male', 25, 'tanvirnomail@abc.com', 1548468600, 'male_avatar.png', 'user@admin.com', '2025-02-20'),
+(6, 'Ratul', 'Mia', 'Male', 24, 'ratulnomail@abc.com', 1548468601, 'male_avatar.png', 'user@admin.com', '2025-02-20');
 
 -- --------------------------------------------------------
 
@@ -65,7 +65,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`session_id`, `expires`, `data`) VALUES
-('xy3KddElnV_TJdVFCNHlJJh1oAEloj5q', 1740603433, '{\"cookie\":{\"originalMaxAge\":604800000,\"expires\":\"2025-02-26T20:55:00.030Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"auth\":{\"user\":true,\"email\":\"user@admin.com\",\"name\":\"Maria\"}}');
+('jlckkUX9GUhs6X0H6FP5dJLezpogUeEj', 1740639624, '{\"cookie\":{\"originalMaxAge\":604800000,\"expires\":\"2025-02-27T06:57:26.039Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"auth\":{\"user\":true,\"email\":\"user@admin.com\",\"name\":\"Maria\",\"avatar\":\"female_avatar.png\"}}');
 
 -- --------------------------------------------------------
 
@@ -88,7 +88,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `gender`, `email`, `password`, `avatar`, `created_at`) VALUES
-(5, 'Maria', 'Male', 'user@admin.com', '148b1596562b7ad508c8ad0313e20832', '', '2025-02-20');
+(5, 'Maria', 'Male', 'user@admin.com', '148b1596562b7ad508c8ad0313e20832', 'female_avatar.png', '2025-02-20');
 
 --
 -- Indexes for dumped tables
@@ -122,13 +122,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
